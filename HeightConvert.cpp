@@ -16,17 +16,18 @@ int main()
     float cm;
     
     // Ask for input
-    cout << "Enter the foot dimension of your height: ";
-	cin >> feet;
-    cout << endl;
+    cerr << "Enter the foot dimension of your height: " << flush;
+    cin >> feet;
+    cout << "Foot dimenion of height is " << feet << "." << endl;
     
-    cout << "Enter the inch dimension of your height: ";
+    cerr << "Enter the inch dimension of your height: " << flush;
     cin >> inches;
-    cout << endl;
+    cout << "Inch dimension of height is " << inches << "." << endl;
     
     // Calculate centimeters with given input
     cm = (12 * feet + inches) * 2.54;
     
     // Print result
-    cout << "You are " << cm << " centimeters tall." endl;
+    cerr << "You are " << cm << " centimeters tall." << endl;
+    cout << "You are " << cm << " centimeters tall." << endl;
 }

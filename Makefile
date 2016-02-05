@@ -1,9 +1,9 @@
 
 PROGS = HeightConvert
 
-CC = g++`
+CC = g++
 
-CFLAGS = pedantic -wall -g
+CFLAGS = -pedantic -Wall -g
 
 OUTPUT = $(PROGS:=.out)
 
