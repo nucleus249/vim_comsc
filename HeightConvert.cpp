@@ -1,5 +1,5 @@
 
-// Program assignment: 2
+// Program assignment: 1
 // Program name: HeightConvert.cpp
 // Author name: Nicholas Vaughan
 // Date: 2/2/2016

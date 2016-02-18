@@ -1,7 +1,7 @@
 
 # Programs that read the standard input or otherwise require interaction at run
 # time.
-INTERACTIVE_PROGS = HeightConvert
+INTERACTIVE_PROGS = HeightConvert test14
 
 # Programs that do not read the standard input and do not otherwise require
 # interaction at run time.
