@@ -84,3 +84,5 @@ clean :
 	@rm -fv $(PROGS)
 	@rm -fv tags
 
+# Must be last line.  See <http://mad-scientist.net/make/autodep.html>.
+-include $(SRC:%.cpp=$(DEPDIR)/%.P)
