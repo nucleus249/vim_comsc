@@ -8,6 +8,9 @@
 
 // Never put 'using namespace' at global scope in header file.
 
+// FIXME: Abstract common code from read_input() and read_input_line() into new
+// function or functions.
+
 // Read integer from standard input.
 //
 // If standard output be a (teletype, tty) terminal, then send the prompt to
@@ -42,6 +45,19 @@ inline int read_input(std::string const &prompt)
    return input;
 }
 
+// Read line of text from standard input.
+//
+// If standard output be a (teletype, tty) terminal, then send the prompt to
+// the standard output before reading from standard input; otherwise, send the
+// prompt to the standard error, which will be visible to the user even if the
+// standard output have been redirected to a file.
+//
+// Finally, if the standard input be not a terminal, then print both the prompt
+// and the user's input to the standard output, which is redirected to a file.
+//
+// read_input_line() allows for the user's experience to be identical,
+// regardless of whether redirection be used to record a transcript of the
+// session in a file.
 inline std::string read_input_line(std::string const &prompt)
 {
    int const is_term = isatty(fileno(stdout));
