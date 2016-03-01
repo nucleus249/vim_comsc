@@ -75,7 +75,8 @@ meanCalcOutput.txt : meanCalc meanCalcInput.txt
 	./meanCalc
 
 clean : 
+	@rm -frv .dep
 	@rm -fv *.o
-	@rm -fv $(PROGS)
 	@rm -fv $(OUTPUT)
+	@rm -fv $(PROGS)
 
