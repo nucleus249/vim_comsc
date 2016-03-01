@@ -40,7 +40,10 @@ int main(int argc, char **argv)
       oss1 << "Total width is " << total_width << ".";
       write_output(oss1.str());
       string const text = read_input_line("Enter text to be centered: ");
-      int const margin = (total_width - text.length()) / 2;
+      // length() returns string::size_type, not int. Without cast, compiler
+      // warns about conversion. Conversion is done explicitly and should be OK
+      // so long as length be never too large to fit into an int.
+      int const margin = (total_width - int(text.length())) / 2;
       ostringstream oss2;
       oss2 << setw(margin) << setfill('-') << "-";
       oss2 << left << setw(total_width - margin) << text << endl;

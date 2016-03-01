@@ -1,4 +1,8 @@
+.dep
 HeightConvert
 HeightConvert.out
+meanCalc
+meanCalcOutput.txt
+*.o
 test14
 test14.out

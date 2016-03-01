@@ -19,7 +19,7 @@ int main()
     int const in = read_input("integer inches in height: ");
     
     // Calculate centimeters with given input.
-    float const cm = (12 * ft + in) * 2.54;
+    double const cm = (12 * ft + in) * 2.54;
     
     // Print result.
     ostringstream oss;
