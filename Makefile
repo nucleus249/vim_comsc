@@ -63,7 +63,7 @@ SRC    = $(wildcard *.cpp)
 
 .PHONY : all clean interactive
 
-all : $(PROGS) $(STDOUT_OUTPUT) $(NO_STDIO_OUTPUT)
+all : $(PROGS) $(STDOUT_OUTPUT) $(NO_STDIO_OUTPUT) tags
 
 interactive : $(STDIN_STDOUT_OUTPUT)
 
@@ -74,9 +74,13 @@ test14 : test14.o io.o
 meanCalcOutput.txt : meanCalc meanCalcInput.txt
 	./meanCalc
 
+tags : $(SRC) $(wildcard *.hpp)
+	if test -x $(CTAGS); then ctags -R; fi
+
 clean : 
 	@rm -frv .dep
 	@rm -fv *.o
 	@rm -fv $(OUTPUT)
 	@rm -fv $(PROGS)
+	@rm -fv tags
 

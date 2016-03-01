@@ -4,5 +4,6 @@ HeightConvert.out
 meanCalc
 meanCalcOutput.txt
 *.o
+tags
 test14
 test14.out
