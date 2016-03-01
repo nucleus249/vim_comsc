@@ -1,6 +1,6 @@
 
 /// \file io.hpp
-/// 
+///
 /// The present file provides an input-output (IO) interface by which an
 /// interactive program can be run either directly from the command line or by
 /// way of the Makefile, which logs the interaction to a different file for
@@ -52,5 +52,5 @@ std::string read_input_line(std::string const &prompt);
 
 // Write string to standard output and, if the standard output be not a
 // (teletype, tty) terminal, then write the string also to the standard error.
-void write_output(std::string const& output);
+void write_output(std::string const &output);
 

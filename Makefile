@@ -39,23 +39,21 @@ CXXFLAGS = $(WARN_FLAGS) -g
 # files.
 CC = $(CXX)
 
-# See <http://mad-scientist.net/make/autodep.html>.
-DEPDIR = .dep
-SRC    = $(wildcard *.cpp)
-
-# See <http://mad-scientist.net/make/autodep.html>.
-%.o : %.cpp Makefile
-	$(CXX) -MD $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
-	@mkdir -p $(DEPDIR)
-	@cp $*.d $(DEPDIR)/$*.P
-	@sed                 \
-	  -e 's/#.*//'       \
-	  -e 's/^[^:]*: *//' \
-	  -e 's/ *\\$$//'    \
-	  -e '/^$$/ d'       \
-	  -e 's/$$/ :/'      \
-	  < $*.d >> $(DEPDIR)/$*.P
-	@rm -f $*.d
+# See
+# <http://make.mad-scientist.net/papers/advanced-auto-dependency-generation>.
+DEPDIR = .d
+$(shell mkdir -p $(DEPDIR) >/dev/null)
+DEPFLAGS    = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
+SRCS        = $(wildcard *.cpp)
+COMPILE.c   = $(CC) $(DEPFLAGS) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+COMPILE.cc  = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+POSTCOMPILE = mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d
+%.o : %.cpp
+%.o : %.cpp $(DEPDIR)/%.d
+	$(COMPILE.cc) $(OUTPUT_OPTION) $<
+	$(POSTCOMPILE)
+$(DEPDIR)/%.d : ;
+.PRECIOUS : $(DEPDIR)/%.d
 
 # Run a program, and redirect its standard output to a log file.
 %.out : %
@@ -78,11 +76,12 @@ tags : $(SRC) $(wildcard *.hpp)
 	if test -x $(CTAGS); then ctags -R; fi
 
 clean : 
-	@rm -frv .dep
+	@rm -frv $(DEPDIR)
 	@rm -fv *.o
 	@rm -fv $(OUTPUT)
 	@rm -fv $(PROGS)
 	@rm -fv tags
 
-# Must be last line.  See <http://mad-scientist.net/make/autodep.html>.
--include $(SRC:%.cpp=$(DEPDIR)/%.P)
+# Must be last line.  See
+# <http://make.mad-scientist.net/papers/advanced-auto-dependency-generation>.
+-include $(patsubst %,$(DEPDIR)/%.d,$(basename $(SRCS)))
